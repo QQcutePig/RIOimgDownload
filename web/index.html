@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-HK">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RIOimgDownload</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="title">RIOimgDownload</div>
+      <div class="sub">Local WebUI • Image/Video Scanner & Downloader</div>
+    </div>
+
+    <div class="top-actions">
+      <button id="themeBtn" class="btn ghost">切換暗/亮</button>
+      <button id="loginBtn" class="btn">開登入視窗</button>
+      <button id="clearLoginBtn" class="btn danger">清除登入資料</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="left">
+      <div class="toolbar">
+        <input id="urlInput" class="input" placeholder="貼入網址 (FB / IG / X / 網站)" />
+        <button id="scanBtn" class="btn primary">Scan</button>
+        <button id="gdlDirectBtn" class="btn">G-DL Direct</button>
+        <button id="stopBtn" class="btn warning" disabled>Stop</button>
+        <button id="clearBtn" class="btn ghost">Clear</button>
+      </div>
+
+      <div class="filters">
+        <label class="chk"><input id="ultraChk" type="checkbox"> Ultra</label>
+        <label class="chk"><input id="loginModeChk" type="checkbox"> Login Mode（用已登入 profile）</label>
+        <label class="chk"><input id="debugChk" type="checkbox"> Debug Browser（顯示瀏覽器）</label>
+        <span class="sep"></span>
+        <label class="chk"><input id="wantImageChk" type="checkbox" checked> Images</label>
+        <label class="chk"><input id="wantVideoChk" type="checkbox" checked> Videos (mp4/webm)</label>
+      </div>
+
+      <!-- 黑名單 + 篩選條件同一行 -->
+      <div class="filters2">
+        <input id="blacklist" class="input" placeholder="Blacklist (comma separated)" style="flex: 1; min-width: 200px;" />
+        <label class="chk" style="white-space: nowrap;"><input id="hideErrChk" type="checkbox"> 隱藏 ERR/BIG</label>
+        <label style="white-space: nowrap;">Min W <input id="minW" class="mini" value="200"></label>
+        <label style="white-space: nowrap;">Min H <input id="minH" class="mini" value="200"></label>
+        <button id="applyFilterBtn" class="btn primary">套用篩選</button>
+        <button id="resetFilterBtn" class="btn ghost">重設篩選</button>
+      </div>
+
+      <div class="status">
+        <div id="statusText">Ready.</div>
+        <div id="gdlStatusText" class="gdl-status"></div>
+        <div class="progress">
+          <div id="progressBar" class="bar" style="width:0%"></div>
+        </div>
+      </div>
+
+      <div id="grid" class="grid"></div>
+    </section>
+
+    <aside class="right">
+      <div class="panel">
+        <div class="panel-title">操作</div>
+        <button id="selAllBtn" class="btn full">Select all</button>
+        <button id="selNoneBtn" class="btn full ghost">Deselect all</button>
+        <button id="invertBtn" class="btn full ghost">Invert</button>
+      </div>
+
+      <!-- Download 區（搬落嚟） -->
+      <div class="panel">
+        <div class="panel-title">下載</div>
+        <label style="font-size: 12px; color: var(--muted); margin-bottom: 4px;">下載路徑</label>
+        <input id="destDir" class="input" placeholder="例如 ~/Downloads" style="margin-bottom: 8px;" />
+        
+        <label style="font-size: 12px; color: var(--muted); margin-bottom: 4px;">下載引擎</label>
+        <select id="engineSel" class="select" style="margin-bottom: 8px;">
+          <option value="builtin">Built-in download</option>
+          <option value="gallery-dl">gallery-dl</option>
+        </select>
+        
+        <button id="downloadBtn" class="btn success full">Download selected</button>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">提示</div>
+        <div class="hint">
+          IG / X / FB 建議先開「Login Mode」，按「開登入視窗」登入一次，之後一直有效直到你按「清除登入資料」。
+        </div>
+        <div class="hint">
+          掃唔夠多：試 Ultra + Login Mode；而家已加 Network 捕捉，通常會比只靠 DOM 多。
+        </div>
+        <div class="hint">
+          「G-DL Direct」係唔經預覽、直接用 gallery-dl 掃網址並下載（類似你舊版 "全套抓"）。
+        </div>
+        <div class="hint">
+          登入視窗預設 IG，你可以手動改網址去 FB / X 登入，cookie 會保留喺同一個 profile。
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>

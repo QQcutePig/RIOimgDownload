@@ -1,0 +1,199 @@
+:root{
+  --bg: #0f1115;
+  --panel:#141823;
+  --panel2:#0f1320;
+  --text:#e7eaf0;
+  --muted:#9aa3b2;
+  --border:#263044;
+  --primary:#3b82f6;
+  --success:#10b981;
+  --warning:#f59e0b;
+  --danger:#ef4444;
+  --card:#111827;
+}
+
+:root.light{
+  --bg:#f6f7fb;
+  --panel:#ffffff;
+  --panel2:#ffffff;
+  --text:#111827;
+  --muted:#4b5563;
+  --border:#e5e7eb;
+  --card:#ffffff;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Arial;
+  background:var(--bg);
+  color:var(--text);
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 16px;
+  border-bottom:1px solid var(--border);
+  background:linear-gradient(180deg, var(--panel2), var(--panel));
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.brand .title{font-size:18px; font-weight:700;}
+.brand .sub{font-size:12px; color:var(--muted); margin-top:2px;}
+
+.layout{
+  display:grid;
+  grid-template-columns: 1fr 300px;
+  gap:14px;
+  padding:14px;
+}
+
+.left{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:12px;
+  min-height:calc(100vh - 88px);
+}
+
+.right{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.panel{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:12px;
+}
+
+.panel-title{font-weight:700; margin-bottom:10px;}
+.hint{font-size:12px; color:var(--muted); line-height:1.4; margin-bottom:10px;}
+
+.toolbar, .filters, .filters2{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  flex-wrap:wrap;
+  margin-bottom:10px;
+}
+
+.input{
+  flex:1;
+  min-width:240px;
+  padding:10px 10px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:var(--bg);
+  color:var(--text);
+}
+
+.select{
+  padding:10px 10px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:var(--bg);
+  color:var(--text);
+}
+
+.mini{
+  width:80px;
+  padding:8px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:var(--bg);
+  color:var(--text);
+}
+
+.chk{font-size:13px; color:var(--muted); display:flex; gap:6px; align-items:center;}
+.sep{width:1px; height:18px; background:var(--border); margin:0 4px;}
+
+.btn{
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--text);
+  cursor:pointer;
+  user-select:none;
+}
+.btn:hover{filter:brightness(1.05)}
+.btn:disabled{opacity:.5; cursor:not-allowed}
+
+.btn.primary{background:rgba(59,130,246,.18); border-color:rgba(59,130,246,.35)}
+.btn.success{background:rgba(16,185,129,.18); border-color:rgba(16,185,129,.35)}
+.btn.warning{background:rgba(245,158,11,.18); border-color:rgba(245,158,11,.35)}
+.btn.danger{background:rgba(239,68,68,.18); border-color:rgba(239,68,68,.35)}
+.btn.ghost{background:transparent}
+.btn.full{width:100%}
+
+.status{display:flex; flex-direction:column; gap:8px; margin-bottom:8px;}
+#statusText{font-size:13px; color:var(--muted);}
+.progress{height:10px; border-radius:999px; background:rgba(255,255,255,.06); overflow:hidden; border:1px solid var(--border);}
+.progress .bar{height:100%; background:linear-gradient(90deg, var(--primary), #8b5cf6);}
+
+.grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap:10px;
+}
+
+.card{
+  border:1px solid var(--border);
+  border-radius:12px;
+  overflow:hidden;
+  background:var(--card);
+  display:flex;
+  flex-direction:column;
+}
+
+.thumb{
+  width:100%;
+  aspect-ratio: 1 / 1;
+  object-fit:cover;
+  background:#111;
+}
+
+.meta{
+  padding:10px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  align-items:center;
+}
+
+.badge{
+  font-size:11px;
+  padding:3px 8px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  color:var(--muted);
+}
+
+.url{
+  font-size:11px;
+  color:var(--muted);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+@media (max-width: 980px){
+  .layout{grid-template-columns: 1fr;}
+}
+.gdl-status {
+  font-size: 12px;
+  margin-top: 4px;
+}
