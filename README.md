@@ -27,33 +27,18 @@
 
 ### 第一步：下載程式
 
-```bash
-git clone https://github.com/你的github/RIOimgDownload.git
-cd RIOimgDownload
-```
+🚀 快速開始
+Windows
+前置需求:
+執行 run.bat
 
-### 第二步：安裝依賴
+macOS
+前置需求:
+執行 start.command
 
-```bash
-pip install -r requirements.txt
-```
-
-如果遇到 Playwright 問題，手動安裝瀏覽器：
-
-```bash
-playwright install msedge
-```
-
-### 第三步：啟動程式
-
-**Windows:**
-```bash
-run.bat
-```
-
-**Mac / Linux:**
-```bash
-python app.py
+Linux 啟動
+前置需求:
+執行 start.sh 啟動
 ```
 
 程式會自動打開瀏覽器，進入 `http://localhost:5000`
@@ -348,18 +333,7 @@ RIOimgDownload/
 
 - 初始版本（Tkinter GUI）
 
-🚀 快速開始
-Windows
-前置需求:
-執行 run.bat
 
-macOS
-前置需求:
-執行 start.command
-
-Linux 啟動
-前置需求:
-執行 start.sh 啟動
 
 ## 開源許可
 
