@@ -1,5 +1,7 @@
 
 <img width="3824" height="1790" alt="image" src="https://raw.githubusercontent.com/QQcutePig/RIOimgDownload/refs/heads/main/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202026-01-15%20201816.jpg" />
+
+
 # RIOimgDownload WebUI 版本
 
 一個功能強大嘅本地圖片/影片掃描 & 下載工具，支持 Instagram、Facebook、X（Twitter）、TikTok 等主流社交平台及網站。
@@ -39,7 +41,6 @@ macOS
 Linux 啟動
 前置需求:
 執行 start.sh 啟動
-```
 
 程式會自動打開瀏覽器，進入 `http://localhost:5000`
 
@@ -333,13 +334,21 @@ RIOimgDownload/
 
 - 初始版本（Tkinter GUI）
 
-
+---
 
 ## 開源許可
 
 MIT License
 
+---
 
+## 聯絡方式
+
+- 📧 Email：你的郵箱
+- 💬 Issues：GitHub Issues
+- 🐦 Twitter：@你的handle
+
+---
 
 ## 致謝
 
@@ -358,5 +367,5 @@ MIT License
 ---
 
 **最後更新**：2026-01-15  
-**版本**：v1.0  
+**版本**：v2.0  
 **作者**：Your Name
