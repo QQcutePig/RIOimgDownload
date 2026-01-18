@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIOimgDownload</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="topbar">
+        <div class="brand">
+            <div class="title">🎨 RIOimgDownload</div>
+            <div class="sub">掃描並下載網頁媒體</div>
+        </div>
+    </div>
+
+    <div class="layout">
+        <!-- 左側縮圖區 (獨立滾動) -->
+        <div class="left" id="leftPanel">
+            <div id="grid" class="grid"></div>
+        </div>
+
+        <!-- 右側控制區 (獨立滾動) -->
+        <div class="right" id="rightPanel">
+            <!-- 狀態 -->
+            <div class="panel">
+                <div class="panel-title">⚡ 狀態</div>
+                <div class="status">
+                    <div id="statusText">Ready.</div>
+                    <div class="progress">
+                        <div class="bar" id="progressBar" style="width:0"></div>
+                    </div>
+                    <div id="progressPercent" style="font-size:11px;color:var(--muted)">0%</div>
+                </div>
+                
+                <!-- 工具狀態顯示 -->
+                <div id="toolsStatus" class="gdl-status" style="margin-top:12px; padding-top:12px; border-top:1px solid var(--border);">
+                    載入中...
+                </div>
+                
+                <!-- 縮圖大小控制 -->
+                <div style="margin-top:12px; padding-top:12px; border-top:1px solid var(--border);">
+                    <div style="font-size:12px; color:var(--muted); margin-bottom:6px;">縮圖大小</div>
+<div class="thumb-size-btns">
+    <button class="btn" onclick="setThumbSize(120)" title="小">S</button>
+    <button class="btn" onclick="setThumbSize(160)" title="中">M</button>
+    <button class="btn" onclick="setThumbSize(200)" title="大">L</button>
+    <button class="btn" onclick="setThumbSize(240)" title="特大">XL</button>
+</div>
+                </div>
+            </div>
+
+            <!-- 掃描 -->
+            <div class="panel">
+                <div class="panel-title">🔍 掃描</div>
+                <div class="hint">輸入網址，選擇模式後點 Scan</div>
+                <div class="toolbar">
+                    <input type="text" id="urlInput" class="input full-width" placeholder="https://example.com">
+                </div>
+<div style="display:flex; gap:8px; align-items:center; margin-bottom:10px;">
+    <label class="chk"><input type="checkbox" id="ultraCheck"> Ultra</label>
+</div>
+<div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-bottom:10px;">
+    <button class="btn primary" id="scanBtn" onclick="startScan()">Scan</button>
+    <button class="btn danger" id="stopBtn" onclick="stopScan()" disabled>Stop</button>
+    <button class="btn clear" onclick="clearJob()">Clear</button>
+</div>
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+    <button class="btn gdl-btn" id="gdlBtn" onclick="startGDL()">gallery-dl</button>
+    <button class="btn ytdlp-btn" id="ytdlpBtn" onclick="startYTDLP()">yt-dlp</button>
+</div>
+            </div>
+
+            <!-- 篩選 -->
+            <div class="panel">
+                <div class="panel-title">🎯 篩選</div>
+                <div class="filters-grid">
+                    <button class="btn filter-btn" id="filterJPG" onclick="toggleFilterFormat('jpg')">JPG</button>
+                    <button class="btn filter-btn" id="filterPNG" onclick="toggleFilterFormat('png')">PNG</button>
+                    <button class="btn filter-btn" id="filterGIF" onclick="toggleFilterFormat('gif')">GIF</button>
+                    <button class="btn filter-btn" id="filterWEBP" onclick="toggleFilterFormat('webp')">WebP</button>
+                </div>
+<div class="filters-wh" style="margin-bottom:10px;">
+    <div style="display:flex; align-items:center; gap:6px;">
+        <div style="font-size:12px; color:var(--muted); min-width:18px;">W</div>
+        <input type="number" id="minW" class="mini" min="0" style="flex:1;">
+    </div>
+    <div style="display:flex; align-items:center; gap:6px;">
+        <div style="font-size:12px; color:var(--muted); min-width:18px;">H</div>
+        <input type="number" id="minH" class="mini" min="0" style="flex:1;">
+    </div>
+</div>
+<div class="filters-actions">
+    <button class="btn success" onclick="applyFilter()">套用篩選</button>
+    <button class="btn ghost" onclick="resetFilter()">重設篩選</button>
+</div>
+            </div>
+
+            <!-- 選取 -->
+            <div class="panel">
+                <div class="panel-title">✅ 選取</div>
+                <div style="margin-bottom:10px; font-size:13px; color:var(--muted);">
+                    已選: <span id="selCount">0</span> 項
+                </div>
+<div class="select-btns">
+    <button class="btn" onclick="selectAll()">全選</button>
+    <button class="btn" onclick="unselectAll()">取消選取</button>
+    <button class="btn" onclick="invertSelection()">反向選取</button>
+</div>
+            </div>
+
+            <!-- 下載 -->
+            <div class="panel">
+                <div class="panel-title">💾 下載</div>
+                <div class="toolbar full-width-group">
+                    <select id="engineSelect" class="select full-width">
+                        <option value="builtin">內建下載</option>
+                        <option value="gallery-dl">gallery-dl</option>
+                        <option value="yt-dlp">yt-dlp</option>
+                    </select>
+                </div>
+                <div class="toolbar full-width-group">
+                    <button class="btn success full-width" onclick="downloadSelected()">下載選取項目</button>
+                </div>
+<div style="margin-top:10px;">
+    <div style="font-size:11px; color:var(--muted); margin-bottom:6px;">下載路徑</div>
+    <div style="font-size:12px; color:var(--text); margin-bottom:8px; padding:8px; background:var(--bg); border-radius:8px; word-break:break-all;">
+        <span id="destPath">-</span>
+    </div>
+    <button class="btn ghost" style="width:100%;" onclick="changeDest()">📁 變更路徑</button>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
